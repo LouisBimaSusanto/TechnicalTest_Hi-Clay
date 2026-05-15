@@ -26,7 +26,8 @@ namespace Game.Player
 
             shooter = new Shooter(
                 bulletPrefab,
-                reference.FirePoint
+                reference.FirePoint,
+                BulletOwner.Player
             );
 
             fireRateHandler = new ShootCoolDown(fireRate);

@@ -10,5 +10,6 @@ namespace Game.Player
 
         [Header("Combat")]
         public Transform FirePoint;
+        public Transform MeleePoint;
     }
 }

@@ -11,6 +11,8 @@ namespace Game.Player
 
         public event Action OnShootPressed;
 
+        public event Action OnMeleePressed;
+
         public void OnMove(InputAction.CallbackContext context)
         {
             MoveInput = context.ReadValue<Vector2>();
@@ -24,6 +26,16 @@ namespace Game.Player
             }
 
             OnShootPressed?.Invoke();
+        }
+
+        public void OnMelee(InputAction.CallbackContext context)
+        {
+            if (!context.started)
+            {
+                return;
+            }
+
+            OnMeleePressed?.Invoke();
         }
     }
 }
