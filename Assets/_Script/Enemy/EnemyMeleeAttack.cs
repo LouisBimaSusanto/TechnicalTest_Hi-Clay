@@ -1,6 +1,7 @@
 using Game.Combat;
 using Game.Core;
 using UnityEngine;
+using Game.Audio;
 
 namespace Game.Enemy
 {
@@ -57,6 +58,7 @@ namespace Game.Enemy
         private void Attack()
         {
             Debug.Log("Mampus kau, hahahahahhaha");
+            AudioManager.Instance.PlaySFX("HitMelee");
             IDamageable damageable = detection.Player.GetComponent<IDamageable>();
 
             if (damageable == null)

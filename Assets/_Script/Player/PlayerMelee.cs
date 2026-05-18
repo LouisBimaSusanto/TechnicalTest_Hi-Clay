@@ -1,6 +1,7 @@
 using Game.Combat;
 using Game.Core;
 using UnityEngine;
+using Game.Audio;
 
 namespace Game.Player
 {
@@ -38,10 +39,13 @@ namespace Game.Player
         private void HandleAttack()
         {
             Debug.Log("Bertumbuk lah kita");
+
             if (!coolDownHandler.CanShoot())
             {
                 return;
             }
+
+            AudioManager.Instance.PlaySFX("HitMelee");
 
             Collider2D[] hits =
                 Physics2D.OverlapCircleAll(

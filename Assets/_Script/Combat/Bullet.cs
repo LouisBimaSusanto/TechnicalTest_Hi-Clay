@@ -1,5 +1,6 @@
 using Game.Core;
 using UnityEngine;
+using Game.Audio;
 
 namespace Game.Combat
 {
@@ -67,6 +68,8 @@ namespace Game.Combat
             }
 
             damageable.TakeDamage(damage);
+
+            AudioManager.Instance.PlaySFX("BulletHit");
 
             Destroy(gameObject);
         }

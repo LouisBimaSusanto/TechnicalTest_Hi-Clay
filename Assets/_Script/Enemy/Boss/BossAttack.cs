@@ -1,14 +1,20 @@
 using Game.Combat;
 using Game.Core;
-using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Game.Boss
 {
     public class BossAttack : MonoBehaviour
     {
-        [Header("Refrence")]
+        private enum BossAttackType
+        {
+            None,
+            Melee,
+            Ranged,
+            Burst
+        }
+
+        [Header("References")]
         [SerializeField] private Bullet bulletPrefab;
 
         [SerializeField] private Transform firePoint;
@@ -18,21 +24,36 @@ namespace Game.Boss
         [Header("Ranged Attack")]
         [SerializeField] private float rangedCooldown = 2f;
 
+        [Header("Burst Attack")]
+        [SerializeField] private int burstBulletCount = 3;
+
+        [SerializeField] private float burstSpread = 0.3f;
+
         [Header("Melee Attack")]
         [SerializeField] private float meleeCooldown = 1f;
+
         [SerializeField] private float meleeRadius = 2f;
+
         [SerializeField] private int meleeDamage = 2;
+
         [SerializeField] private LayerMask playerLayer;
 
         private Transform player;
+
         private Shooter shooter;
 
         private ShootCoolDown rangedHandler;
+
         private ShootCoolDown meleeHandler;
+
+        private BossAttackType currentAttack;
 
         private void Awake()
         {
-            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            GameObject playerObject =
+                GameObject.FindGameObjectWithTag(
+                    "Player"
+                );
 
             if (playerObject != null)
             {
@@ -43,14 +64,19 @@ namespace Game.Boss
                 bulletPrefab,
                 firePoint,
                 BulletOwner.Enemy
-                );
+            );
 
-            rangedHandler = new ShootCoolDown(rangedCooldown);
+            rangedHandler =
+                new ShootCoolDown(rangedCooldown);
 
-            meleeHandler = new ShootCoolDown(meleeCooldown);
+            meleeHandler =
+                new ShootCoolDown(meleeCooldown);
         }
 
-        public void HandleAttack(bool isPhasedTwo)
+        public void HandleAttack(
+            bool isPhaseTwo,
+            bool isFinalPhase
+        )
         {
             if (player == null)
             {
@@ -61,20 +87,59 @@ namespace Game.Boss
                 Vector2.Distance(
                     transform.position,
                     player.position
-                    );
+                );
 
+            currentAttack =
+                SelectAttack(
+                    distance,
+                    isPhaseTwo,
+                    isFinalPhase
+                );
+
+            ExecuteAttack(currentAttack);
+        }
+
+        private BossAttackType SelectAttack(
+            float distance,
+            bool isPhaseTwo,
+            bool isFinalPhase
+        )
+        {
             if (distance <= meleeRadius)
             {
-                TryMeleeAttack();
-            }
-            else
-            {
-                TryRangedAttack();
+                return BossAttackType.Melee;
             }
 
-            if (isPhasedTwo)
+            if (isFinalPhase)
             {
-                AggresiveAttack();
+                return BossAttackType.Burst;
+            }
+
+            if (isPhaseTwo)
+            {
+                return BossAttackType.Burst;
+            }
+
+            return BossAttackType.Ranged;
+        }
+
+        private void ExecuteAttack(
+            BossAttackType attackType
+        )
+        {
+            switch (attackType)
+            {
+                case BossAttackType.Melee:
+                    TryMeleeAttack();
+                    break;
+
+                case BossAttackType.Ranged:
+                    TryRangedAttack();
+                    break;
+
+                case BossAttackType.Burst:
+                    AggressiveAttack();
+                    break;
             }
         }
 
@@ -85,10 +150,11 @@ namespace Game.Boss
                 return;
             }
 
-            Collider2D playerHit = Physics2D.OverlapCircle(
-                meleePoint.position,
-                meleeRadius,
-                playerLayer
+            Collider2D playerHit =
+                Physics2D.OverlapCircle(
+                    meleePoint.position,
+                    meleeRadius,
+                    playerLayer
                 );
 
             if (playerHit == null)
@@ -96,7 +162,8 @@ namespace Game.Boss
                 return;
             }
 
-            IDamageable damageable = playerHit.GetComponent<IDamageable>();
+            IDamageable damageable =
+                playerHit.GetComponent<IDamageable>();
 
             if (damageable == null)
             {
@@ -113,25 +180,53 @@ namespace Game.Boss
                 return;
             }
 
-            Vector2 direction = player.position - firePoint.position;
+            Vector2 direction =
+                player.position -
+                firePoint.position;
 
             shooter.Shoot(direction);
         }
 
-        private void AggresiveAttack()
+        private void AggressiveAttack()
         {
             if (!rangedHandler.CanShoot())
             {
                 return;
             }
 
-            Vector2 direction = player.position - firePoint.position;
+            int halfBurst =
+                burstBulletCount / 2;
 
-            direction.x += Random.Range(-0.5f, 0.5f);
+            for (
+                int i = -halfBurst;
+                i <= halfBurst;
+                i++
+            )
+            {
+                Vector2 direction =
+                    player.position -
+                    firePoint.position;
 
-            shooter.Shoot(direction);
+                direction.x +=
+                    i * burstSpread;
+
+                shooter.Shoot(direction);
+            }
         }
 
+        private void OnDrawGizmosSelected()
+        {
+            if (meleePoint == null)
+            {
+                return;
+            }
+
+            Gizmos.color = Color.red;
+
+            Gizmos.DrawWireSphere(
+                meleePoint.position,
+                meleeRadius
+            );
+        }
     }
 }
-

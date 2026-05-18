@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 280267546521006732}
   - component: {fileID: 4491902876070453517}
   - component: {fileID: 4859113649612845293}
+  - component: {fileID: 4185432240408373788}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
@@ -35,7 +36,8 @@ Transform:
   m_LocalPosition: {x: 24.93493, y: -0.07773, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1775283299582991174}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3509688711990221928
@@ -202,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebba6c8a4e2756d4082c20f5561cdb77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Enemy.EnemyDetection
-  detectionRange: 5
+  detectionRange: 10
 --- !u!114 &4859113649612845293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,3 +220,64 @@ MonoBehaviour:
   damage: 1
   attackRange: 2
   attackCooldown: 1
+--- !u!114 &4185432240408373788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6244177782447371108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dc0ac1dfe6a354b9362791f5a570fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Feedback.EnemyHitFeedback
+  health: {fileID: 6837615458338438724}
+  damageFlash: {fileID: 3605796144369175697}
+--- !u!1 &7076266600530932455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1775283299582991174}
+  - component: {fileID: 3605796144369175697}
+  m_Layer: 0
+  m_Name: DamageFlash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1775283299582991174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7076266600530932455}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 116.20678, y: 134.07268, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8352315590107416058}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3605796144369175697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7076266600530932455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f271aa12f1c594bb9176361295a86a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Feedback.DamageFlash
+  spriteRenderer: {fileID: 3509688711990221928}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashDuration: 0.1

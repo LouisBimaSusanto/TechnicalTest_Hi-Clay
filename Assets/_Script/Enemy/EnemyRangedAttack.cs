@@ -1,5 +1,6 @@
 using Game.Combat;
 using UnityEngine;
+using Game.Audio;
 
 namespace Game.Enemy
 {
@@ -50,6 +51,8 @@ namespace Game.Enemy
             Vector2 direction = detection.Player.position - firePoint.position;
 
             shooter.Shoot(direction);
+
+            AudioManager.Instance.PlaySFX("EnemyShoot");
         }
     }
 

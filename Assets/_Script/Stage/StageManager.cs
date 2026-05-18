@@ -1,10 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using Game.UI;
 
 namespace Game.StageSystem
 {
     public class StageManager : MonoBehaviour
     {
+        [SerializeField] private StageManagerUI stageUI;
+
         [Header("Stage 1")]
         [SerializeField] private EnemySpawner[] stage1Spawners;
         [SerializeField] int stage1EnemyCount = 5;
@@ -28,11 +31,23 @@ namespace Game.StageSystem
 
         private IEnumerator RunStages()
         {
+            stageUI.ShowStage("Stage 1");
+
+            yield return new WaitForSeconds(2f);
+
             yield return StartCoroutine(Stage1());
 
             currentStage = 2;
 
+            stageUI.ShowStage("Stage 2");
+
+            yield return new WaitForSeconds(2f);
+
             yield return StartCoroutine(Stage2());
+
+            stageUI.ShowStage("Boss Stage");
+
+            yield return new WaitForSeconds(2f);
 
             currentStage = 3;
 
@@ -45,6 +60,8 @@ namespace Game.StageSystem
                 stage1Spawners,
                 stage1EnemyCount
                 );
+
+            yield return null; //Wait for second until systemd done to do task
 
             yield return new WaitUntil(
                 () => EnemyCounterManager.Instance.AllEnemiesDefeated
@@ -63,6 +80,8 @@ namespace Game.StageSystem
                 stage2RangedCount
                 );
 
+            yield return null;
+
             yield return new WaitUntil(
                 () => EnemyCounterManager.Instance.AllEnemiesDefeated
                 ); 
@@ -71,6 +90,8 @@ namespace Game.StageSystem
         private IEnumerator BossStage()
         {
             bossSpawner.SpawnEnemy();
+
+            yield return null;
 
             yield return new WaitUntil(
                 () => EnemyCounterManager.Instance.AllEnemiesDefeated

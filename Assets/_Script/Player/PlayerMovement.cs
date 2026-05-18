@@ -1,4 +1,5 @@
 using UnityEngine;
+using Game.Audio;
 
 namespace Game.Player
 {
@@ -6,12 +7,14 @@ namespace Game.Player
     {
         [Header("Movement Speed")]
         [SerializeField] private float moveSpeed = 7f;
+        [SerializeField] private float footstepInterval = 0.3f;
 
         private PlayerInputHandler inputHandler;
         private PlayerReference reference;
 
         private bool isFacingRight = true;
         public bool IsFacingRight => isFacingRight;
+        private float footstepTimer;
 
         private void Awake()
         {
@@ -31,6 +34,21 @@ namespace Game.Player
             Vector2 velocity = moveDirection * moveSpeed;
 
             reference.Rigidbody2D.linearVelocity = velocity;
+
+
+            if (moveDirection.magnitude > 0f)
+            {
+                footstepTimer -= Time.fixedDeltaTime;
+                if (footstepTimer <= 0f)
+                {
+                    AudioManager.Instance.PlaySFX("FootStep");
+                    footstepTimer = footstepInterval;
+                }
+            }
+            else
+            {
+                footstepTimer = 0f;
+            }
 
             HandleFlip(moveDirection.x);
         }

@@ -1,5 +1,6 @@
 using Game.Combat;
 using UnityEngine;
+using Game.Audio;
 
 namespace Game.Player
 {
@@ -56,6 +57,7 @@ namespace Game.Player
                 : Vector2.left;
 
             shooter.Shoot(shootDirection);
+            AudioManager.Instance.PlaySFX("EnemyShoot");
         }
 
         private void OnValidate()
