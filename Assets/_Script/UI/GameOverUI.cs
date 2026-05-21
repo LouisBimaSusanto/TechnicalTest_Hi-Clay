@@ -24,7 +24,7 @@ namespace Game.UI
         public void Show()
         {
             AudioManager.Instance.StopBGM();
-            AudioManager.Instance.PlaySFX("GameOver");
+            AudioManager.Instance.PlayGameOverSFX("GameOver");
 
             canvasGroup.alpha = 0f;
 
@@ -41,6 +41,8 @@ namespace Game.UI
         public void RestartGame()
         {
             Time.timeScale = 1f;
+
+            AudioManager.Instance.StopGameOverSFX();
 
             SceneManager.LoadScene(
                 SceneManager.GetActiveScene().buildIndex

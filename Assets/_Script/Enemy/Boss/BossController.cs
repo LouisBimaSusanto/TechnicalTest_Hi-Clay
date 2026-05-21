@@ -1,5 +1,6 @@
 using Game.CameraSystem;
 using Game.Core;
+using Game.Enemy;
 using UnityEngine;
 
 namespace Game.Boss
@@ -27,9 +28,12 @@ namespace Game.Boss
 
         public bool IsFinalPhase => isFinalPhase;
 
+        private EnemyAnimator bossAnimator;
+
         private void Awake()
         {
             attack = GetComponent<BossAttack>();
+            bossAnimator = GetComponent<EnemyAnimator>();
         }
 
         private void Update()
@@ -63,6 +67,8 @@ namespace Game.Boss
         private void EnterPhaseTwo()
         {
             isPhaseTwo = true;
+
+            bossAnimator?.PlayAttackAnimation();
 
             CameraShake.Instance
                 ?.ShakeCamera(3f);

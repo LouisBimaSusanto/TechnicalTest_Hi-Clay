@@ -1027,7 +1027,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.33199, y: 0, z: -10}
+  m_LocalPosition: {x: 1.7778925, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1089,86 +1089,6 @@ MonoBehaviour:
     FrequencyGain: 1
     Duration: 1
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
---- !u!1 &531164094
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 531164095}
-  - component: {fileID: 531164096}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &531164095
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 531164094}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.79438, y: 0.54631, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &531164096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 531164094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b99077f1b4289f04ca0a271d089586cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.Audio.AudioManager
-  sceneBGMList:
-  - sceneName: MainMenu
-    bgmClip: {fileID: 8300000, guid: 754e1a09efece1840b02f152bf8616f5, type: 3}
-    volume: 1
-  - sceneName: GamePlay
-    bgmClip: {fileID: 8300000, guid: b07ffb723987aae4d8d73b08d651ac97, type: 3}
-    volume: 0.5
-  sfxList:
-  - name: BulletHit
-    clip: {fileID: 8300000, guid: e693c0ae705fe6e43b57d9d8a1b901f9, type: 3}
-    volume: 1
-    pitch: 0.5
-  - name: EnemyShoot
-    clip: {fileID: 8300000, guid: 312405ee8b35c7a41a32198b693e3c0a, type: 3}
-    volume: 1
-    pitch: 0.5
-  - name: FootStep
-    clip: {fileID: 8300000, guid: 09d3cc11e2604114283ff40b4f193cc2, type: 3}
-    volume: 1
-    pitch: 0.5
-  - name: PlayerDeath
-    clip: {fileID: 8300000, guid: e9cbef358757dd84c89c91e34d88195c, type: 3}
-    volume: 1
-    pitch: 0.5
-  - name: HitMelee
-    clip: {fileID: 8300000, guid: 6e4efb5aa4ea3a1458e2c1ae6cb8e4db, type: 3}
-    volume: 1
-    pitch: 0.5
-  - name: StageChange
-    clip: {fileID: 8300000, guid: 335182994738243488caffb9db96b468, type: 3}
-    volume: 1
-    pitch: 0.5
-  - name: GameOver
-    clip: {fileID: 8300000, guid: a4339d81a9286a34995d52e0b7ee572b, type: 3}
-    volume: 1
-    pitch: 0.5
 --- !u!1 &614137679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,7 +1114,7 @@ Transform:
   m_GameObject: {fileID: 614137679}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.81, y: 0, z: 0}
+  m_LocalPosition: {x: 1.33, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2157,7 +2077,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.875, y: 2.25}
+  m_Size: {x: 4, y: 2.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2362,7 +2282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad18c2534dc72a045bb5b522ddaedfe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Player.PlayerMelee
-  damage: 2
+  damage: 5
   attackRadius: 1
   attackCooldown: 0.5
   enemyLayer:
@@ -2635,13 +2555,18 @@ MonoBehaviour:
   stageUI: {fileID: 1037923561}
   stage1Spawners:
   - {fileID: 268988714}
-  stage1EnemyCount: 1
+  - {fileID: 268988714}
+  - {fileID: 268988714}
+  - {fileID: 268988714}
+  stage1EnemyCount: 4
   stage2EnemyMeleeSpawners:
+  - {fileID: 268988714}
   - {fileID: 268988714}
   stage2EnemyRangedSpawners:
   - {fileID: 2026418291}
-  stage2MeleeCount: 1
-  stage2RangedCount: 1
+  - {fileID: 2026418291}
+  stage2MeleeCount: 2
+  stage2RangedCount: 2
   bossSpawner: {fileID: 1334629443}
 --- !u!1 &964162506
 GameObject:
@@ -3701,7 +3626,7 @@ MonoBehaviour:
   CameraDistance: 10
   DeadZoneDepth: 0
   Composition:
-    ScreenPosition: {x: -0.3, y: 0}
+    ScreenPosition: {x: -0.1, y: 0}
     DeadZone:
       Enabled: 0
       Size: {x: 0.2, y: 0}
@@ -3711,7 +3636,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
   TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 0.4, y: 0, z: 1}
+  Damping: {x: 0.2, y: 0, z: 1}
   Lookahead:
     Enabled: 0
     Time: 0
@@ -3769,7 +3694,7 @@ Transform:
   m_GameObject: {fileID: 1273971291}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.33199, y: 0, z: -10}
+  m_LocalPosition: {x: 1.7778925, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4185,7 +4110,7 @@ Transform:
   m_GameObject: {fileID: 1334629442}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.05, y: -3.31, z: 0}
+  m_LocalPosition: {x: 21.39, y: -0.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6451,4 +6376,3 @@ SceneRoots:
   - {fileID: 962320229}
   - {fileID: 1902566342}
   - {fileID: 1700617347}
-  - {fileID: 531164095}

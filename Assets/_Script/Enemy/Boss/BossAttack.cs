@@ -1,5 +1,6 @@
 using Game.Combat;
 using Game.Core;
+using Game.Enemy;
 using UnityEngine;
 
 namespace Game.Boss
@@ -48,6 +49,8 @@ namespace Game.Boss
 
         private BossAttackType currentAttack;
 
+        private EnemyAnimator bossAnimator;
+
         private void Awake()
         {
             GameObject playerObject =
@@ -71,6 +74,8 @@ namespace Game.Boss
 
             meleeHandler =
                 new ShootCoolDown(meleeCooldown);
+
+            bossAnimator = GetComponent<EnemyAnimator>();
         }
 
         public void HandleAttack(
@@ -150,6 +155,8 @@ namespace Game.Boss
                 return;
             }
 
+            bossAnimator.PlayAttackAnimation();
+
             Collider2D playerHit =
                 Physics2D.OverlapCircle(
                     meleePoint.position,
@@ -180,6 +187,8 @@ namespace Game.Boss
                 return;
             }
 
+            bossAnimator.PlayAttackAnimation();
+
             Vector2 direction =
                 player.position -
                 firePoint.position;
@@ -196,6 +205,8 @@ namespace Game.Boss
 
             int halfBurst =
                 burstBulletCount / 2;
+
+            bossAnimator.PlayAttackAnimation();
 
             for (
                 int i = -halfBurst;

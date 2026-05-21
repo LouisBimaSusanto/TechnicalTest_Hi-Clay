@@ -35,6 +35,8 @@ namespace Game.Audio
         private AudioSource bgmSource;
         private AudioSource sfxSource;
 
+        private AudioSource gameOverSfxSource;
+
         private void Awake()
         {
             if (Instance == null)
@@ -63,6 +65,7 @@ namespace Game.Audio
         // Auto dipanggil setiap kali scene baru dimuat
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            StopAllSFX();
             PlayBGMForScene(scene.name);
         }
 
@@ -75,6 +78,10 @@ namespace Game.Audio
             sfxSource = gameObject.AddComponent<AudioSource>();
             sfxSource.loop = false;
             sfxSource.playOnAwake = false;
+
+            gameOverSfxSource = gameObject.AddComponent<AudioSource>(); 
+            gameOverSfxSource.loop = false;
+            gameOverSfxSource.playOnAwake = false;
         }
 
         public void PlayBGMForScene(string sceneName)
@@ -98,6 +105,22 @@ namespace Game.Audio
 
         public void StopBGM() => bgmSource.Stop();
 
+        public void PlayGameOverSFX(string soundName)
+        {
+            SoundEntry entry = sfxList.Find(s => s.name == soundName);
+            if (entry == null)
+            {
+                Debug.LogWarning($"[AudioManager] SFX '{soundName}' tidak ditemukan!");
+                return;
+            }
+            gameOverSfxSource.clip = entry.clip;
+            gameOverSfxSource.volume = entry.volume;
+            gameOverSfxSource.pitch = entry.pitch;
+            gameOverSfxSource.Play();
+        }
+
+        public void StopGameOverSFX() => gameOverSfxSource.Stop();
+
         public void PlaySFX(string soundName)
         {
             SoundEntry entry = sfxList.Find(s => s.name == soundName);
@@ -108,6 +131,12 @@ namespace Game.Audio
             }
             sfxSource.pitch = entry.pitch;
             sfxSource.PlayOneShot(entry.clip, entry.volume);
+        }
+
+        public void StopAllSFX()
+        {
+            sfxSource.Stop();
+            gameOverSfxSource.Stop();
         }
     }
 }
